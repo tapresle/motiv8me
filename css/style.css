@@ -41,10 +41,11 @@
 html {
     font-size: 16px;
     color: rgba(255, 255, 255, .2);
+    height: 100%;
 }
 
 body {
-    background-repeat: no-repeat;
+    background: #333 no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -83,7 +84,9 @@ body {
     color: #FFFFFF;
     font-size: 5em;
     text-align: center;
-    padding-top: 200px;
+    text-shadow: #333 1px 1px 1px;
+    position: relative;
+    top: 200px;
 }
 
 .title {
@@ -115,4 +118,88 @@ body {
 
 #output {
     color: #CC0000;
+}
+
+#conout {
+    color: #CC0000;
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+   .header {
+    background-color: rgba(0, 0, 0, .7);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    text-decoration: none;
+   }
+    
+    #quote {
+    color: #FFFFFF;
+    font-size: 3em;
+    text-align: center;
+    text-shadow: #333 1px 1px 1px;
+    position: relative;
+    top: 100px;
+    }
+    
+    .title {
+    font-size: 2em;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 1);
+    }
+
+    .menu {
+        float: right;
+        font-size: 1em;
+        padding: .55em .55em .55em .55em;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .menu a {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 1);
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+    .header {
+    background-color: rgba(0, 0, 0, .7);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    text-decoration: none;
+   }
+    
+    #quote {
+    color: #FFFFFF;
+    font-size: 3.5em;
+    text-align: center;
+    text-shadow: #333 1px 1px 1px;
+    position: relative;
+    top: 100px;
+    }
+    
+    .title {
+    font-size: 2em;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 1);
+    }
+
+    .menu {
+        float: right;
+        font-size: 1em;
+        padding: .55em .55em .55em .55em;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 1);
+    }
+
+    .menu a {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 1);
+    }
 }
