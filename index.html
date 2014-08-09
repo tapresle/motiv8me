@@ -2,19 +2,95 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        
         <title>Motiv8</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+        function submitForm() {
+            var imgblank=$.trim($("#image-file").val());
+            var quoteblank=$.trim($("#quote-upload").val());
+            
+            if(imgblank.length === 0 && quoteblank.length === 0) {
+                $('#output').text("Please choose an image to upload or enter a quote to submit");
+                var delay = setTimeout(function() {
+                    $('#output').text("");
+                }, 5000);
+                return false;
+            }
+            
+            $('#output').html("<br/><img src='images/ajax-loader.gif' /><p style=\"color: #000000\">Uploading... This may take a while</p>");
+            var fd = new FormData(document.getElementById("fileinfo"));
+            fd.append("label", $.now());
+            $.ajax({
+              url: "forms/upload.php",
+              type: "POST",
+              data: fd,
+              enctype: 'multipart/form-data',
+              processData: false,  // tell jQuery not to process the data
+              contentType: false   // tell jQuery not to set contentType
+            }).done(function( data ) {
+                $('#submit').val("Uploaded!");
+                $('#image-file').val("");
+                $('#quote-upload').val("");
+                $('#credit-upload').val("");
+                $('#output').empty();
+                var delay = setTimeout(function() {
+                    $('#submit').val("Upload");
+                }, 5000);
+            });
+            return false;
+        }
+            
+        function submitContact() {
+            var blank=$.trim($("#message").val());
+            if(blank.length === 0) {
+                $('#msgdiv').addClass('has-error');
+                var delay = setTimeout(function() {
+                    $('#msgdiv').removeClass('has-error');
+                }, 5000);
+                return false;
+            }
+            
+            var fd = new FormData(document.getElementById("contactform"));
+            $.ajax({
+                url: "forms/contact.php",
+                type: "POST",
+                data: fd,
+                processData: false,
+                contentType: false
+            }).done(function( data ) {
+                $('#contactsubmit').val("Thanks!");
+                $('#email').val("");
+                $('#message').val("");
+                var delay = setTimeout(function() {
+                    $('#contactsubmit').val("Send");
+                }, 5000);
+            });
+            return false;
+        }
+        </script>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
     </head>
 
     <body>
         <script type="text/javascript">
             $(document).ready(function() {
 
-                var images = ['Brick.jpg', 'Ocean.jpg', 'Bridge.jpg'];
+                var images = ['Brick.jpg', 'Ocean.jpg', 'Bridge.jpg', 'air.jpg', 'boardwalk.jpg', 'city.jpg', 'fence.jpg', 'road.jpg', 'sunset.jpg', 'trail.jpg', 'train.jpg'];
                 $('body').css({'background-image': 'url(images/' + images[Math.floor(Math.random() * images.length)] + ')'});
 
-                var quotes = ['Life isn\'t about getting and having, it\'s about giving and being', 'You can never cross the ocean until you have the courage to lose sight of the shore', 'Your time is limited, so don\’t waste it living someone else\’s life.'];
+                var quotes = ['Life isn\'t about getting and having, it\'s about giving and being', 'You can never cross the ocean until you have the courage to lose sight of the shore', 'Your time is limited, so don\’t waste it living someone else\’s life.','Time is the most valuable thing you can spend','Smiling is the best way to start your day','Time spent laughing is time well spent','Mistakes are proof you are trying','Every accomplishment starts with the decision to try','The longest journey always beings with one, simple step','Time flies, but you are the pilot','Don\'t always look backwards or you will miss your future','When was the last time you did something for the first time?','Every dawn brings new hope, every dusk should bring satisfaction','Don\'t count the minutes of the day. Make the minutes of the day count.','Stand up and say, \"I will be great today!\"','The time is always right to do the right thing now','The only thing we all have in common is the same hours in a day','Sometimes good things fall apart so better things can fall together','Brighten someone else\'s day and it will warm your soul','By small and simple things are great things brought to pass','Today is a new day','Be glad life doesn\'t come with an instruction manual','It is way more fun to wing it than to follow directions','Youre life should not be a game of follow the leader, pave your own path','Your days are as fun as you make them','Life goes on so keep on keeping on!','Smile. You\'re beautiful','Don\'t fall back on what\'s behind you, spring forward to what\'s ahead','Do one thing every day that will make someone smile','Dreams bloom best in a well tended garden','When life gives you lemons ask, \"Is that ALL you\'ve got?\"','When it\'s cloudy remember, the sun is always shining somewhere','Life is a party, don\'t forget to bring the cake!','Learn from yesterday, dream about tomorrow, live in the moment','Everything happens for a reason, even if it takes time to realize it'];
                 var selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
                 $('#quote').text(selectedquote);
 
@@ -23,8 +99,90 @@
                 $('#quote').css({'font-family': selectedfont});
 
             }); 
-        </script>   
-        <div id="quote">Life isn&#39;t about getting and having, it&#39;s about giving and being.</div>
+        </script>
+        <div class="header">
+			<a class="title" href="index.html">Motiv8</a>
+            <div class="menu">
+                <a href="#" data-toggle="modal" data-target="#about">About</a> | 
+                <a href="#" data-toggle="modal" data-target="#contribute">Contribute</a> | 
+                <a href="#" data-toggle="modal" data-target="#contact">Contact</a>
+            </div>
+        </div>
+        <div id="quote"></div>
+        
+        <!-- About Modal -->
+        <div class="modal fade" id="about">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">About</h4>
+              </div>
+              <div class="modal-body">
+                <p>I created this website to provide motivational quotes over great photography from friends, local photographers, and the internet. All images are released CC0, "No Rights Reserved" and I will credit the original photographer when possible.</p>
+                <p>Created by: <a href="http://tedpresley.info">Ted Presley</a></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        
+        <!-- Contribute Modal -->
+        <div class="modal fade" id="contribute">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Contribute</h4>
+              </div>
+              <div class="modal-body">
+                <p>If you would like to add an image or quote to the website, use this form to upload them along with the original photographer's name if known.</p>
+                <form enctype="multipart/form-data" id="fileinfo" onSubmit="return submitForm();">
+                    <b>Image:</b><input id="image-file" name="file" type="file"> <br/>
+                    <b>Quote:</b><input class="form-control" id="quote-upload" name="quote" type="text" placeholder="Enter quote"> <br/>
+                    <b>Credit:</b><input class="form-control" id="credit-upload" name="credit" type="text" placeholder="Who should I give credit to?"> <br/>
+                    <input id="submit" class="btn btn-default" type="submit" value="Upload">
+                </form>
+                <div id="output"></div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    
+        <!-- Contact Modal -->
+        <div class="modal fade" id="contact">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Contact</h4>
+              </div>
+              <div class="modal-body">
+                <p>If you would like to get in contact with me, shoot me a message using this form. Thanks!</p>
+                <form role="form" id="contactform" onSubmit="return submitContact();">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter email">
+                  </div>
+                  <div id="msgdiv" class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" class="form-control" name="message" placeholder="Enter Message"></textarea>
+                  </div>
+                  <input id="contactsubmit" type="submit" class="btn btn-default" value="Send">
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    
     </body>
 
 </html>
