@@ -42,14 +42,17 @@ html {
     font-size: 16px;
     color: rgba(255, 255, 255, .2);
     height: 100%;
-}
-
-body {
     background: #333 no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+body {
+    background-color: transparent;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 .header {
@@ -87,6 +90,7 @@ body {
     text-shadow: #333 1px 1px 1px;
     position: relative;
     top: 200px;
+    background-color: transparent;
 }
 
 .title {
