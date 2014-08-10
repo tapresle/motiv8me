@@ -34,7 +34,7 @@ if ((($_FILES["file"]["type"] == "image/gif")
     echo "Invalid file";
 }
 
-$quote = $_POST["quote"];
-$credit = $_POST["credit"];
+$quote = trim($_POST["quote"]);
+$credit = trim($_POST["credit"]);
 mail("tapresle92@gmail.com", "Motiv8 upload", "There has been an image/quote uploaded to Motiv8. Image: ".$filename." Quote: ".$quote." Credit: ".$credit, "From Motiv8");
 ?>

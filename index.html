@@ -116,11 +116,26 @@
     <body>
         <script type="text/javascript">
             $(document).ready(function() {
+                
+                //Reload quote and background every 10 seconds
+                var myInterval = setInterval(function() {
+                    $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
+                    selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
+                    $('#quote').text(selectedquote);
+                    selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
+                    $('#quote').css({'font-family': selectedfont});
+                }, 10000);
+                
+                //Stop the cycle
+                //Possibly change text to manually stop and restart cycle later
+                $("#stop").click(function(){
+                    clearInterval(myInterval);
+                });
 
                 var images = ['Brick.jpg', 'Ocean.jpg', 'Bridge.jpg', 'air.jpg', 'boardwalk.jpg', 'city.jpg', 'fence.jpg', 'road.jpg', 'sunset.jpg', 'trail.jpg', 'train.jpg'];
                 $('html').css({'background-image': 'url(images/' + images[Math.floor(Math.random() * images.length)] + ')'});
 
-                var quotes = ['Life isn\'t about getting and having, it\'s about giving and being', 'You can never cross the ocean until you have the courage to lose sight of the shore', 'Your time is limited, so don\’t waste it living someone else\’s life.','Time is the most valuable thing you can spend','Smiling is the best way to start your day','Time spent laughing is time well spent','Mistakes are proof you are trying','Every accomplishment starts with the decision to try','The longest journey always beings with one, simple step','Time flies, but you are the pilot','Don\'t always look backwards or you will miss your future','When was the last time you did something for the first time?','Every dawn brings new hope, every dusk should bring satisfaction','Don\'t count the minutes of the day. Make the minutes of the day count.','Stand up and say, \"I will be great today!\"','The time is always right to do the right thing now','The only thing we all have in common is the same hours in a day','Sometimes good things fall apart so better things can fall together','Brighten someone else\'s day and it will warm your soul','By small and simple things are great things brought to pass','Today is a new day','Be glad life doesn\'t come with an instruction manual','It is way more fun to wing it than to follow directions','Youre life should not be a game of follow the leader, pave your own path','Your days are as fun as you make them','Life goes on so keep on keeping on!','Smile. You\'re beautiful','Don\'t fall back on what\'s behind you, spring forward to what\'s ahead','Do one thing every day that will make someone smile','Dreams bloom best in a well tended garden','When life gives you lemons ask, \"Is that ALL you\'ve got?\"','When it\'s cloudy remember, the sun is always shining somewhere','Life is a party, don\'t forget to bring the cake!','Learn from yesterday, dream about tomorrow, live in the moment','Everything happens for a reason, even if it takes time to realize it'];
+                var quotes = ['Life isn\'t about getting and having, it\'s about giving and being', 'You can never cross the ocean until you have the courage to lose sight of the shore', 'Your time is limited, so don\’t waste it living someone else\’s life.','Time is the most valuable thing you can spend','Smiling is the best way to start your day','Time spent laughing is time well spent','Mistakes are proof you are trying','Every accomplishment starts with the decision to try','The longest journey always beings with one, simple step','Time flies, but you are the pilot','Don\'t always look backwards or you will miss your future','When was the last time you did something for the first time?','Every dawn brings new hope, every dusk should bring satisfaction','Don\'t count the minutes of the day. Make the minutes of the day count.','Stand up and say, \"I will be great today!\"','The time is always right to do the right thing now','The only thing we all have in common is the same hours in a day','Sometimes good things fall apart so better things can fall together','Brighten someone else\'s day and it will warm your soul','By small and simple things are great things brought to pass','Today is a new day','Be glad life doesn\'t come with an instruction manual','It is way more fun to wing it than to follow directions','Your life should not be a game of follow the leader, pave your own path','Your days are as fun as you make them','Life goes on so keep on keeping on!','Smile. You\'re beautiful','Don\'t fall back on what\'s behind you, spring forward to what\'s ahead','Do one thing every day that will make someone smile','Dreams bloom best in a well tended garden','When life gives you lemons ask, \"Is that ALL you\'ve got?\"','When it\'s cloudy remember, the sun is always shining somewhere','Life is a party, don\'t forget to bring the cake!','Learn from yesterday, dream about tomorrow, live in the moment','Everything happens for a reason, even if it takes time to realize it'];
                 var selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
                 $('#quote').text(selectedquote);
 
@@ -130,20 +145,40 @@
                 
                 //Reload quote and background when clicking on title
                 $('#title').click(function() {
-                $('html').css({'background-image': 'url(images/' + images[Math.floor(Math.random() * images.length)] + ')'});
-                selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
-                $('#quote').text(selectedquote);
-                selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
-                $('#quote').css({'font-family': selectedfont});
+                    $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
+                    selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
+                    $('#quote').text(selectedquote);
+                    selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
+                    $('#quote').css({'font-family': selectedfont});
+                    
+                    //Reset interval
+                    clearInterval(myInterval);
+                    myInterval = setInterval(function() {
+                    $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
+                    selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
+                    $('#quote').text(selectedquote);
+                    selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
+                    $('#quote').css({'font-family': selectedfont});
+                }, 10000);
                 });
                 
                 //Reload quote and background when clicking on title
                 $('#quote').click(function() {
-                $('html').css({'background-image': 'url(images/' + images[Math.floor(Math.random() * images.length)] + ')'});
-                selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
-                $('#quote').text(selectedquote);
-                selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
-                $('#quote').css({'font-family': selectedfont});
+                    $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
+                    selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
+                    $('#quote').text(selectedquote);
+                    selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
+                    $('#quote').css({'font-family': selectedfont});
+                    
+                    //Reset interval
+                    clearInterval(myInterval);
+                    myInterval = setInterval(function() {
+                    $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
+                    selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
+                    $('#quote').text(selectedquote);
+                    selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
+                    $('#quote').css({'font-family': selectedfont});
+                }, 10000);
                 });
                 
             });
@@ -151,6 +186,7 @@
         <div class="header">
 			<a id="title" class="title" href="#">Motiv8</a>
             <div class="menu">
+                <a href="#" id="stop" onclick="stopCycle()">Stop Cycle</a> | 
                 <a href="#" data-toggle="modal" data-target="#about">About</a> | 
                 <a href="#" data-toggle="modal" data-target="#contribute">Contribute</a> | 
                 <a href="#" data-toggle="modal" data-target="#contact">Contact</a>
@@ -164,9 +200,10 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">About</h4>
+                <h4 class="modal-title">About Motiv8</h4>
               </div>
               <div class="modal-body">
+                <p>How it works: A new image and quote are loaded every 10 seconds, or can be manually cycled through by clicking on the quote. If you have a picture or quote you would like featured, please consider uploading it using the "Contribute" link.</p>
                 <p>I created this website to provide motivational quotes over great photography from friends, local photographers, and the internet. All images are released CC0, "No Rights Reserved" and I will credit the original photographer when possible.</p>
                 <p>Created by: <a href="http://tedpresley.info">Ted Presley</a></p>
               </div>
@@ -219,7 +256,7 @@
                 <form role="form" id="contactform" onSubmit="return submitContact();">
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter email">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter email (Not required unless you would like a response)">
                   </div>
                   <div id="msgdiv" class="form-group">
                     <label for="message">Message</label>
@@ -236,6 +273,18 @@
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
     
+        
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-53623547-1', 'auto');
+          ga('send', 'pageview');
+
+        </script>
     </body>
 
 </html>
