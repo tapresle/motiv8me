@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         
-        <title>Motiv8</title>
+        <title>Motiv8me</title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
@@ -128,9 +128,23 @@
                 
                 //Stop the cycle
                 //Possibly change text to manually stop and restart cycle later
-                $("#stop").click(function(){
-                    clearInterval(myInterval);
+                $('#cycle').click(function(){
+                    if($(this).text() === "Stop Cycle") {
+                        clearInterval(myInterval);
+                        $(this).text("Start Cycle");
+                    }
+                    else {
+                        myInterval = setInterval(function() {
+                        $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
+                        selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
+                        $('#quote').text(selectedquote);
+                        selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
+                        $('#quote').css({'font-family': selectedfont});
+                        }, 10000);
+                        $(this).text("Stop Cycle");
+                    }
                 });
+                
 
                 var images = ['Brick.jpg', 'Ocean.jpg', 'Bridge.jpg', 'air.jpg', 'boardwalk.jpg', 'city.jpg', 'fence.jpg', 'road.jpg', 'sunset.jpg', 'trail.jpg', 'train.jpg'];
                 $('html').css({'background-image': 'url(images/' + images[Math.floor(Math.random() * images.length)] + ')'});
@@ -151,15 +165,17 @@
                     selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
                     $('#quote').css({'font-family': selectedfont});
                     
-                    //Reset interval
-                    clearInterval(myInterval);
-                    myInterval = setInterval(function() {
-                    $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
-                    selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
-                    $('#quote').text(selectedquote);
-                    selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
-                    $('#quote').css({'font-family': selectedfont});
-                }, 10000);
+                    //Reset interval if cycle is on
+                    if($('#cycle').text === "Stop Cycle") {
+                        clearInterval(myInterval);
+                        myInterval = setInterval(function() {
+                        $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
+                        selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
+                        $('#quote').text(selectedquote);
+                        selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
+                        $('#quote').css({'font-family': selectedfont});
+                        }, 10000);
+                    }
                 });
                 
                 //Reload quote and background when clicking on title
@@ -170,23 +186,25 @@
                     selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
                     $('#quote').css({'font-family': selectedfont});
                     
-                    //Reset interval
-                    clearInterval(myInterval);
-                    myInterval = setInterval(function() {
-                    $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
-                    selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
-                    $('#quote').text(selectedquote);
-                    selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
-                    $('#quote').css({'font-family': selectedfont});
-                }, 10000);
+                    //Reset interval if cycle is on
+                    if($('#cycle').text() === "Stop Cycle") {
+                        clearInterval(myInterval);
+                        myInterval = setInterval(function() {
+                        $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
+                        selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
+                        $('#quote').text(selectedquote);
+                        selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
+                        $('#quote').css({'font-family': selectedfont});
+                        }, 10000);
+                    }
                 });
                 
             });
         </script>
         <div class="header">
-			<a id="title" class="title" href="#">Motiv8</a>
+			<a id="title" class="title" href="#">Motiv8me</a>
             <div class="menu">
-                <a href="#" id="stop" onclick="stopCycle()">Stop Cycle</a> | 
+                <a href="#" id="cycle">Stop Cycle</a> | 
                 <a href="#" data-toggle="modal" data-target="#about">About</a> | 
                 <a href="#" data-toggle="modal" data-target="#contribute">Contribute</a> | 
                 <a href="#" data-toggle="modal" data-target="#contact">Contact</a>
@@ -200,7 +218,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">About Motiv8</h4>
+                <h4 class="modal-title">About Motiv8me</h4>
               </div>
               <div class="modal-body">
                 <p>How it works: A new image and quote are loaded every 10 seconds, or can be manually cycled through by clicking on the quote. If you have a picture or quote you would like featured, please consider uploading it using the "Contribute" link.</p>
@@ -208,6 +226,9 @@
                 <p>Created by: <a href="http://tedpresley.info">Ted Presley</a></p>
               </div>
               <div class="modal-footer">
+                <div class="ribbon">
+                  <a href="http://github.com/tapresle/motiv8me">Fork me on GitHub</a>
+                </div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div><!-- /.modal-content -->
@@ -272,7 +293,6 @@
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
-    
         
         <!-- Google Analytics -->
         <script>
