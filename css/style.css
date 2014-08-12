@@ -158,6 +158,15 @@ body {
     text-shadow: 0 0 5px #444;
 }
 
+.btn-danger {
+    background-color: #a00;
+}
+
+#personalLink {
+    color: #a00;
+    text-decoration: none;
+}
+
 /* Landscape phones and down */
 @media (max-width: 480px) {
    .header {
