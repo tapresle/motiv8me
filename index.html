@@ -38,7 +38,7 @@
             }
             
             //Submit form and upload
-            $('#output').html("<br/><img src='images/ajax-loader.gif' /><p style=\"color: #000000\">Uploading... This may take a while</p>");
+            $('#output').html("<br/><img src='images/ajax-loader.gif' alt='Uploading'/><p style=\"color: #000000\">Uploading... This may take a while</p>");
             var fd = new FormData(document.getElementById("fileinfo"));
             fd.append("label", $.now());
             $.ajax({
@@ -117,88 +117,54 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 
-                //Reload quote and background every 10 seconds
-                var myInterval = setInterval(function() {
-                    $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
-                    selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
-                    $('#quote').text(selectedquote);
-                    selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
-                    $('#quote').css({'font-family': selectedfont});
-                }, 10000);
+                //Photos courtesy of unsplash.com and gratisography.com
+                var images = ['Brick.jpg', 'Ocean.jpg', 'Bridge.jpg', 'air.jpg', 'boardwalk.jpg', 'city.jpg', 'fence.jpg', 'road.jpg', 'sunset.jpg', 'trail.jpg', 'train.jpg', 'newyork.jpg', 'rails.jpg', 'river.jpg', 'valley.jpg', 'waves.jpg', 'paris.jpg'];
+                var credits = ['Ryan McGuire','Ryan McGuire','Ryan McGuire','Ryan McGuire','Paula Borowska','Björn Simon','Ryan McGuire','Ryan McGuire','Ryan McGuire','Martin Dörsch','Geoffrey Arduini','Jonas Nilsson Lee','Tiago Gerken','Nick West','Paweł Wojciechowski','Olivia Henry','Rob Potvin'];
+                var quotes = ['Life isn\'t about getting and having, it\'s about giving and being', 'You can never cross the ocean until you have the courage to lose sight of the shore', 'Your time is limited, so don\’t waste it living someone else\’s life.','Time is the most valuable thing you can spend','Smiling is the best way to start your day','Time spent laughing is time well spent','Mistakes are proof you are trying','Every accomplishment starts with the decision to try','The longest journey always beings with one, simple step','Time flies, but you are the pilot','Don\'t always look backwards or you will miss your future','When was the last time you did something for the first time?','Every dawn brings new hope, every dusk should bring satisfaction','Don\'t count the minutes of the day. Make the minutes of the day count.','Stand up and say, \"I will be great today!\"','The time is always right to do the right thing now','The only thing we all have in common is the same hours in a day','Sometimes good things fall apart so better things can fall together','Brighten someone else\'s day and it will warm your soul','By small and simple things are great things brought to pass','Today is a new day','Be glad life doesn\'t come with an instruction manual','It is way more fun to wing it than to follow directions','Your life should not be a game of follow the leader, pave your own path','Your days are as fun as you make them','Life goes on so keep on keeping on!','Smile. You\'re beautiful','Don\'t fall back on what\'s behind you, spring forward to what\'s ahead','Do one thing every day that will make someone smile','Dreams bloom best in a well tended garden','When life gives you lemons ask, \"Is that ALL you\'ve got?\"','When it\'s cloudy remember, the sun is always shining somewhere','Life is a party, don\'t forget to bring the cake!','Learn from yesterday, dream about tomorrow, live in the moment','Everything happens for a reason, even if it takes time to realize it','Strive not to be a success, but rather to be of value','The only person you are destined to become is the person you decide to be','Believe you can and you’re halfway there','Life is not measured by the number of breaths we take, but by the moments that take our breath away','Happiness is not something readymade. It comes from your own actions','It is never too late to be what you might have been','Dream big and dare to fail'];
+                var cycle = true;
                 
-                //Stop the cycle
-                //Possibly change text to manually stop and restart cycle later
+                function loadNext() {
+                    var photoindex = Math.floor(Math.random() * images.length);
+                    $('html').css({'background': '#333 url(images/' + images[photoindex] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
+                    $('#photocredit').text(credits[photoindex]);
+                    var selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
+                    $('#quote').text(selectedquote);
+
+                    var fonts = ['sunrise', 'gloria', 'lobster', 'love', 'pacifico', 'shadows', 'shadows2', 'girl'];
+                    var selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
+                    $('#quote').css({'font-family': selectedfont});
+                }
+                
+                //Load first photo/quote
+                loadNext();
+                
+                //Reload quote and background every 10 seconds
+                var myInterval = setInterval(loadNext, 10000);
+                
+                //Toggle the cycle
                 $('#cycle').click(function(){
-                    if($(this).text() === "Stop Cycle") {
+                    if(cycle) {
                         clearInterval(myInterval);
                         $(this).text("Start Cycle");
+                        cycle = false;
                     }
                     else {
-                        myInterval = setInterval(function() {
-                        $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
-                        selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
-                        $('#quote').text(selectedquote);
-                        selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
-                        $('#quote').css({'font-family': selectedfont});
-                        }, 10000);
+                        myInterval = setInterval(loadNext, 10000);
                         $(this).text("Stop Cycle");
+                        cycle = true;
                     }
                 });
                 
-
-                var images = ['Brick.jpg', 'Ocean.jpg', 'Bridge.jpg', 'air.jpg', 'boardwalk.jpg', 'city.jpg', 'fence.jpg', 'road.jpg', 'sunset.jpg', 'trail.jpg', 'train.jpg', 'newyork.jpg', 'rails.jpg', 'river.jpg', 'trail.jpg', 'valley.jpg', 'waves.jpg'];
-                $('html').css({'background-image': 'url(images/' + images[Math.floor(Math.random() * images.length)] + ')'});
-
-                var quotes = ['Life isn\'t about getting and having, it\'s about giving and being', 'You can never cross the ocean until you have the courage to lose sight of the shore', 'Your time is limited, so don\’t waste it living someone else\’s life.','Time is the most valuable thing you can spend','Smiling is the best way to start your day','Time spent laughing is time well spent','Mistakes are proof you are trying','Every accomplishment starts with the decision to try','The longest journey always beings with one, simple step','Time flies, but you are the pilot','Don\'t always look backwards or you will miss your future','When was the last time you did something for the first time?','Every dawn brings new hope, every dusk should bring satisfaction','Don\'t count the minutes of the day. Make the minutes of the day count.','Stand up and say, \"I will be great today!\"','The time is always right to do the right thing now','The only thing we all have in common is the same hours in a day','Sometimes good things fall apart so better things can fall together','Brighten someone else\'s day and it will warm your soul','By small and simple things are great things brought to pass','Today is a new day','Be glad life doesn\'t come with an instruction manual','It is way more fun to wing it than to follow directions','Your life should not be a game of follow the leader, pave your own path','Your days are as fun as you make them','Life goes on so keep on keeping on!','Smile. You\'re beautiful','Don\'t fall back on what\'s behind you, spring forward to what\'s ahead','Do one thing every day that will make someone smile','Dreams bloom best in a well tended garden','When life gives you lemons ask, \"Is that ALL you\'ve got?\"','When it\'s cloudy remember, the sun is always shining somewhere','Life is a party, don\'t forget to bring the cake!','Learn from yesterday, dream about tomorrow, live in the moment','Everything happens for a reason, even if it takes time to realize it','Strive not to be a success, but rather to be of value','The only person you are destined to become is the person you decide to be','Believe you can and you’re halfway there','Life is not measured by the number of breaths we take, but by the moments that take our breath away','Happiness is not something readymade. It comes from your own actions','It is never too late to be what you might have been','Dream big and dare to fail'];
-                var selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
-                $('#quote').text(selectedquote);
-
-                var fonts = ['sunrise', 'gloria', 'lobster', 'love', 'pacifico', 'shadows', 'shadows2', 'girl'];
-                var selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
-                $('#quote').css({'font-family': selectedfont});
-                
-                //Reload quote and background when clicking on title
-                $('#title').click(function() {
-                    $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
-                    selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
-                    $('#quote').text(selectedquote);
-                    selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
-                    $('#quote').css({'font-family': selectedfont});
-                    
-                    //Reset interval if cycle is on
-                    if($('#cycle').text === "Stop Cycle") {
+                //Reload quote and background when clicking on title or quote
+                $('#title, #quote').click(function() {
+                    //Reset interval if cycle is true
+                    if(cycle) {
                         clearInterval(myInterval);
-                        myInterval = setInterval(function() {
-                        $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
-                        selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
-                        $('#quote').text(selectedquote);
-                        selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
-                        $('#quote').css({'font-family': selectedfont});
-                        }, 10000);
+                        myInterval = setInterval(loadNext, 10000);
                     }
+                    //Load next photo/quote
+                    loadNext();
                 });
-                
-                //Reload quote and background when clicking on title
-                $('#quote').click(function() {
-                    $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
-                    selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
-                    $('#quote').text(selectedquote);
-                    selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
-                    $('#quote').css({'font-family': selectedfont});
-                    
-                    //Reset interval if cycle is on
-                    if($('#cycle').text() === "Stop Cycle") {
-                        clearInterval(myInterval);
-                        myInterval = setInterval(function() {
-                        $('html').css({'background': '#333 url(images/' + images[Math.floor(Math.random() * images.length)] + ') no-repeat center center fixed', '-webkit-background-size': 'cover','-moz-background-size': 'cover','-o-background-size': 'cover','background-size': 'cover'});
-                        selectedquote = quotes[Math.floor(Math.random() * quotes.length)];
-                        $('#quote').text(selectedquote);
-                        selectedfont = fonts[Math.floor(Math.random() * fonts.length)];
-                        $('#quote').css({'font-family': selectedfont});
-                        }, 10000);
-                    }
-                });
-                
             });
         </script>
         <div class="header">
@@ -301,6 +267,9 @@
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        
+        <!-- Footer -->
+        <footer id="footer">Photo by: <span id="photocredit"></span></footer>
         
         <!-- Google Analytics -->
         <script>

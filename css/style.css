@@ -167,6 +167,19 @@ body {
     text-decoration: none;
 }
 
+#footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    color: rgba(255, 255, 255, .3);
+    font-size: 2em;
+}
+
+#footer:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
 /* Landscape phones and down */
 @media (max-width: 480px) {
    .header {
@@ -203,6 +216,19 @@ body {
 
     .menu a {
         text-decoration: none;
+        color: rgba(255, 255, 255, 1);
+    }
+    
+    #footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    color: rgba(255, 255, 255, .3);
+    font-size: 1em;
+    }
+
+    #footer:hover {
         color: rgba(255, 255, 255, 1);
     }
 }
@@ -243,6 +269,19 @@ body {
 
     .menu a {
         text-decoration: none;
+        color: rgba(255, 255, 255, 1);
+    }
+    
+    #footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-align: right;
+    color: rgba(255, 255, 255, .3);
+    font-size: 1em;
+    }
+
+    #footer:hover {
         color: rgba(255, 255, 255, 1);
     }
 }
