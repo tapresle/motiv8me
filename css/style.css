@@ -43,11 +43,7 @@ html {
     color: rgba(255, 255, 255, .2);
     height: 100%;
     width: 100%;
-    background: #333 no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    background-color: #333;
 }
 
 body {
